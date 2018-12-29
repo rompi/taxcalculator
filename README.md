@@ -15,8 +15,22 @@ Tax Calculator
         - 2: 10 + (2% of price)
         - 3: if 0 < price < 100, tax is free. If price >= 100, tax = 1% of (price - 100)
 
+## Database Design
+The database just store data of object, so there is just one table exists.
+Database driver use PostgreSQL.
+Database name is `tax`.
+The database contain one table that is named `tax_object`.
+Here is the `tax_object`'s table contains:
+
+| Column        | Type          | Note                  |
+| :------------ |:--------------| :---------------------|
+| ID            | serial        | Primary key           |
+| name          | string        | object name           |
+| tax_code      | int           | to be mapped to type  |
+| price         | float64       | price                 |
+
 ## API
-By running docker-compose up, we can access the application API at localhost:3000. And here is the API details
+By running `docker-compose up`, we can access the application API at localhost:3000. And here is the API details
 
 1. Create tax object
     - Endpoint: `/object`
@@ -90,16 +104,3 @@ By running docker-compose up, we can access the application API at localhost:300
         "error": null
       }
     ```
-## Database Design
-The database just store data of object, so there is just one table exists.
-Database driver use PostgreSQL.
-Database name is `tax`.
-The database contain one table that is named `tax_object`.
-Here is the `tax_object`'s table contains:
-
-| Column        | Type          | Note                  |
-| :------------ |:--------------| :---------------------|
-| ID            | serial        | Primary key           |
-| name          | string        | object name           |
-| tax_code      | int           | to be mapped to type  |
-| price         | float64       | price                 |
