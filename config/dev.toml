@@ -1,0 +1,13 @@
+[database]
+host = "db.taxcalculator.com" 
+# host = "localhost"    
+port = 5432          
+user = "postgres"    
+password = "postgres"
+name = "tax"       
+
+[logger]
+filename =   "/var/log/tax-calc/taxcalc.log"
+max_size =    1024
+max_backups =  2
+max_age =      7

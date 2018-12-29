@@ -1,0 +1,26 @@
+version: '2.2'
+services:
+  taxcalculator.com:
+    build: .
+    image: taxcalc:dev
+    environment:
+      - ENV=dev
+      - POSTGRES_DB=postgres
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./log:/var/log/tax-calc/
+  db.taxcalculator.com:
+    image: onjin/alpine-postgres:9.5
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tax
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    volumes:
+      - ./createdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/var/lib/postgresql/data
