@@ -8,6 +8,7 @@ import (
 	"github.com/rompi/tax-calc/constant"
 )
 
+// Validate field input
 func Validate(o *model.Object) []string {
 	var es []string
 	if o.Name == "" {

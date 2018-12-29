@@ -12,6 +12,7 @@ type DB struct {
 	*sql.DB
 }
 
+// CreateObject commit to database and return latest id
 func (db DB) CreateObject(o *model.Object) (*model.Object, error) {
 	stmt := fmt.Sprintf("INSERT INTO tax_object(name, tax_code, price) VALUES('%s',%d,%0.2f) RETURNING ID", o.Name, o.TaxCode, o.Price)
 
@@ -26,12 +27,13 @@ func (db DB) CreateObject(o *model.Object) (*model.Object, error) {
 	if err != nil {
 		log.Println("error in execute insert query", stmt, err.Error())
 		return nil, err
-	} else {
-		o.Id = int64(id)
 	}
+	o.Id = int64(id)
+
 	return o, nil
 }
 
+// GetObjects from database
 func (db DB) GetObjects() ([]*model.Object, int, error) {
 	var objects []*model.Object
 	stmt := fmt.Sprintf("SELECT id, name, tax_code, price from tax_object order by id desc")

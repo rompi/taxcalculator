@@ -10,6 +10,7 @@ import (
 	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 
+// logging
 func setupLogger() *logrus.Logger {
 	logger := logrus.New()
 	logger.Formatter = &logrus.JSONFormatter{}
@@ -22,6 +23,7 @@ func setupLogger() *logrus.Logger {
 	return logger
 }
 
+// database connection
 func connectDB() (*sql.DB, error) {
 	dbHost := conf.GetString("database.host")         //conf.GetString(env + ".database.HOST")
 	dbPort := conf.GetInt("database.port")            //conf.GetInt(env + ".database.PORT")
@@ -40,6 +42,7 @@ func connectDB() (*sql.DB, error) {
 	return db, err
 }
 
+// setup request handler
 func setupHandler(db *sql.DB, logger *logrus.Logger) handler.Handler {
 	return handler.Handler{
 		Logic: logic.Billing{

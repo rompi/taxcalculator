@@ -9,17 +9,6 @@ import (
 	"github.com/rompi/tax-calc/app/model"
 )
 
-func setObject(h handler.Handler, o *model.Object) (int, *model.Response) {
-	statusCode, payload := handler.HandleCreateObject(h, o)
-	return statusCode, payload
-
-}
-
-func getObject(h handler.Handler) (int, *model.ResponseList) {
-	statusCode, payload := handler.HandleGetObject(h)
-	return statusCode, payload
-}
-
 func routers(h handler.Handler) {
 	router.Post("/object", func(w http.ResponseWriter, r *http.Request) {
 		var o *model.Object
@@ -47,6 +36,17 @@ func routers(h handler.Handler) {
 		jsonResponse(w, statusCode, payload)
 		return
 	})
+}
+
+func setObject(h handler.Handler, o *model.Object) (int, *model.Response) {
+	statusCode, payload := handler.HandleCreateObject(h, o)
+	return statusCode, payload
+
+}
+
+func getObject(h handler.Handler) (int, *model.ResponseList) {
+	statusCode, payload := handler.HandleGetObject(h)
+	return statusCode, payload
 }
 
 // jsonResponse write json response format

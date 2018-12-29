@@ -20,6 +20,7 @@ var (
 )
 
 func main() {
+	// read config file
 	conf = viper.New()
 	conf.SetConfigName("dev")       // no need to include file extension
 	conf.AddConfigPath("../config") // set the path of your config file
@@ -29,12 +30,14 @@ func main() {
 		panic(err)
 	}
 
+	// setup database connection
 	db, err := connectDB()
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
 
+	// setup logger and handler
 	logger := setupLogger()
 	handler := setupHandler(db, logger)
 	router = chi.NewRouter()

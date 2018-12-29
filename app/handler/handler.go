@@ -15,13 +15,16 @@ type Handler struct {
 	Log   *logrus.Logger
 }
 
+// HandleCreateObject and build response message
 func HandleCreateObject(h Handler, o *model.Object) (int, *model.Response) {
+	// validate input value
 	errVal := validateInput(o)
 	if len(errVal) > 0 {
 		payload := model.BuildResponse(nil, errVal)
 		return http.StatusBadRequest, payload
 	}
 
+	// processing create new data
 	data, err := h.Logic.Create(o)
 	if err != nil {
 		payload := model.BuildResponse(o, []string{err.Error()})
@@ -31,6 +34,7 @@ func HandleCreateObject(h Handler, o *model.Object) (int, *model.Response) {
 	return http.StatusCreated, payload
 }
 
+// HandleGetObject and build response message
 func HandleGetObject(h Handler) (int, *model.ResponseList) {
 	data, _, err := h.Logic.Read()
 	if err != nil {
